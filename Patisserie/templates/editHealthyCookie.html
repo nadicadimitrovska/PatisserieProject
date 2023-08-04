@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Healthy Cookie</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+            crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+
+<style>
+    .navbar-brand{
+        width: 100px;
+        margin-left: 30px;
+    }
+
+    #navColor{
+        background-color: #FFEEEC;
+    }
+    .textColor{
+        color: #4F2914;
+    }
+    .imageNav{
+        width: 50px;
+        padding: 10px;
+    }
+    body{
+        background-color: #4F2914;
+    }
+    .card{
+        height: 500px;
+        margin: 30px;
+        padding: 28px;
+        border: 1px solid #FFEEEC;
+        background-color: #FFEEEC;
+        width: 400px;
+        color: #4F2914;
+        position: relative;
+        left: 450px;
+
+    }
+
+    footer{
+        background-color: #FFBECB;
+    }
+    #phone{
+        width: 20px;
+    }
+    #location{
+        width: 30px;
+    }
+    #delivery{
+        width: 40px;
+    }
+    #footerLogo{
+        width: 100px;
+        position: relative;
+        left: 250px;
+        bottom: 58px;
+    }
+    .down{
+        position: relative;
+        top: 43px;
+    }
+    .center{
+        position: relative;
+        left: 155px;
+        bottom: 50px;
+    }
+    #message{
+        width: 40px;
+    }
+    #facebook{
+        width: 50px;
+    }
+    #instagram{
+        width: 40px;
+    }
+    .right{
+        position: relative;
+        left: 380px;
+    }
+
+
+
+</style>
+<body>
+<header>
+    <nav class="navbar navbar-expand-lg " id="navColor">
+        <div class="container-fluid">
+            <img class="navbar-brand" src="https://pbs.twimg.com/media/F2r3a5pXUAExq_6?format=jpg&name=small">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active fw-semibold textColor fs-4" aria-current="page"
+                           href="../../patisserie/">Почетна</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle fw-semibold textColor fs-4" href="../../patisserie/"
+                           role="button"
+                           data-bs-toggle="dropdown" aria-expanded="false">
+                            Производи
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item fw-semibold textColor fs-4" href="../../torti">Торти</a></li>
+                            <li><a class="dropdown-item fw-semibold textColor fs-4" href="../../kolachi">Колачи</a></li>
+                            <li><a class="dropdown-divider fw-semibold textColor fs-4" href="../prirodnaBaza">Природна
+                                база</a></li>
+                            <li><a class="dropdown-item fw-semibold textColor fs-4" href="../../narachka">Нарачка
+                                по желба</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link fw-semibold textColor fs-4" href="../../zaNas">За Нас</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link fw-semibold textColor fs-4" href="../../kontakt">Контакт</a>
+                    </li>
+                </ul>
+                {% block sidebar %}
+                {% if user.is_authenticated %}
+                User: {{ user.get_username }}
+                <a href="{% url 'logout' %}?next={{ request.path }}" class="textColor"
+                   style="text-decoration: none"><img class="d-flex nav-link imageNav"
+                                                      src="https://icons.veryicon.com/png/o/internet--web/55-common-web-icons/person-4.png"/></a>
+                {% else %}
+                <a class="link-opacity-0" href="{% url 'login' %}?next={{ request.path }}"><img
+                        class="d-flex nav-link imageNav"
+                        src="https://icons.veryicon.com/png/o/internet--web/55-common-web-icons/person-4.png"/></a>
+                {% endif %}
+                {% endblock %}
+                <a class="link-opacity-0" href="../../shoppingCart"><img class="d-flex nav-link imageNav"
+                                                                         src="https://www.freepnglogos.com/uploads/shopping-cart-png/shopping-cart-svg-png-icon-download-28.png"/></a>
+                <form class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-dark" type="submit">Search</button>
+                </form>
+
+            </div>
+        </div>
+    </nav>
+</header>
+<div class="container bd-gutter mt-3 my-md-4 bd-layout onImage">
+    <div class="container-fluid">
+        <div class="container">
+            <div class="card">
+
+                <h1>Edit Healthy Cookie</h1>
+                <form method="post">
+                    {% csrf_token %}
+                    <label for="title">Title:</label>
+                    <input type="text" name="title" value="{{ healthyCookie.title }}" required class="form-control" style="width:200px;">
+                    <label for="ingredients">Ingredients:</label>
+                    <input type="text" name="ingredients" value="{{ healthyCookie.ingredients }}" required class="form-control" style="width:200px;">
+                    <label for="price">Price:</label>
+                    <input type="text" name="price" value="{{ healthyCookie.price }}" required class="form-control" style="width:200px;">
+                    <label for="image">Image:</label>
+                    <input type="text" name="image" value="{{ healthyCookie.image.url }}" required class="form-control" style="width:200px;">
+                    <br>
+                    <input type="submit" value="Save Changes" class="btn btn-success">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer class="bd-footer py-4 py-md-5 mt-5 ">
+    <div class="container py-4 py-md-5 px-4 px-md-3 text-body-secondary">
+        <div class="row">
+            <div class="col-3 down">
+                <p class="fw-medium textColor"><img id="phone"
+                                                    src="https://www.freeiconspng.com/thumbs/phone-icon/office-phone-icon--25.png">072-227-708
+                </p>
+                <p class="fw-medium textColor"><img id="location"
+                                                    src="https://www.freeiconspng.com/thumbs/location-icon-png/location-icon-map-png--1.png">ул.
+                    Димитрие Чуповски</p>
+                <p class="fw-medium textColor"><img id="delivery"
+                                                    src="https://www.freeiconspng.com/thumbs/delivery-icon/delivery-icon-1.png">
+                    Достава</p>
+            </div>
+            <div class="col-3">
+                <img id="footerLogo" src="https://pbs.twimg.com/media/F2r3KURWoAA_Lke?format=jpg&name=small">
+                <p class="fw-medium textColor text-center center">Информации за Лојална програма</p>
+                <p class="fw-medium textColor text-center center">Правила и услови за користење на Веб страната</p>
+                <p class="fw-medium textColor text-center center">Политика и приватност</p>
+            </div>
+            <div class="col-3 right down">
+                <p class="fw-medium textColor">Контактирајте не на:</p>
+                <img id="message" src="https://img.freepik.com/free-icon/email_318-859700.jpg">
+                <img id="facebook"
+                     src="https://icon-library.com/images/facebook-transparent-icon/facebook-transparent-icon-9.jpg">
+                <img id="instagram"
+                     src="https://www.transparentpng.com/thumb/logo-instagram/4u4DTk-instagram-logo-transparent-background.png">
+            </div>
+        </div>
+    </div>
+</footer>
+</body>
+</html>
